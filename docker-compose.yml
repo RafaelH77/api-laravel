@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+
+#  apache_site:
+#    image: matheusdacs/fsysecmapache:latest
+#    restart: always
+#    container_name: apache_site
+#    ports:
+#      - "${HTTP_PORT}:80"
+#      - "${HTTPS_PORT}:443"
+#    networks:
+#      - net
+#    volumes:
+#      - .:/usr/local/apache2/htdocs/
+#    depends_on:
+#      - php8_site
+
+  php8_site:
+    image: php8_site
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    restart: always
+    container_name: php8_site
+    ports:
+      - "9000:9000"
+    networks:
+      - net
+    volumes:
+      - .:/var/www/html/
+    tty: true
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./volume/nginx.conf:/etc/nginx/nginx.conf
+      - ./volume/server.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www/html/
+    ports:
+      - "8080:80"
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
