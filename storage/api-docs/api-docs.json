@@ -1,0 +1,19 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/produto": {
+            "get": {
+                "operationId": "9e8b6153520e2c11e39c18d32a728581",
+                "responses": {
+                    "200": {
+                        "description": "An example endpoint"
+                    }
+                }
+            }
+        }
+    }
+}

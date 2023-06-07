@@ -16,8 +16,6 @@ RUN pecl install xdebug-3.2.1 \
 
 RUN apt-get install -y    \
     build-essential
-    
-RUN docker-php-ext-enable fileinfo
 
 RUN echo "[xdebug]" >> $PHP_INI_DIR/php.ini \
     && echo "xdebug.mode=debug" >> $PHP_INI_DIR/php.ini \

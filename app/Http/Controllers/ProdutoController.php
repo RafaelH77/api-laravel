@@ -16,6 +16,12 @@ class ProdutoController extends Controller
         $this->service = $service;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/produto",
+     *     @OA\Response(response="200", description="An example endpoint")
+     * )
+     */
     public function index()
     {
         $list = $this->service->getAll();
