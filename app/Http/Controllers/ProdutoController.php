@@ -24,31 +24,26 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        $list = $this->service->getAll();
-        return ProdutoResource::collection($list);
+        return ProdutoResource::collection($this->service->getAll());
     }
 
     public function store(Request $request)
     {
-        $data = $this->service->create($request->all());
-        return new ProdutoResource($data);
+        return new ProdutoResource($this->service->create($request->all()));
     }
 
     public function show($id)
     {
-        $data = $this->service->getById($id);
-        return new ProdutoResource($data);
+        return new ProdutoResource($this->service->getById($id));
     }
 
     public function update(Request $request, $id)
     {
-        $data = $this->service->update($id, $request->all());
-        return $data;
+        return $this->service->update($id, $request->all());
     }
 
     public function destroy($id)
     {
-        $data = $this->service->delete($id);
-        return $data;
+        return $this->service->delete($id);
     }
 }
