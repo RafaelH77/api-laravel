@@ -54,7 +54,7 @@ class ProdutoRepository implements IProdutoRepository
      */
     public function update(int $id, array $data)
     {
-        return $this->entity->update($id, $data);
+        return $this->entity->where('id', $id)->update($data);
     }
 
     /**

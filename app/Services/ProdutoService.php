@@ -48,14 +48,8 @@ class ProdutoService
      */
     public function update(int $id, array $data)
     {
-        $object = $this->repository->getById($id);
-
-        if (!$object) {
-            return response()->json(['message' => 'Not Found'], 404);
-        }
-
-        $this->repository->update($id, $data);
-        return response()->json(['message' => 'Updated'], 200);
+        $result = $this->repository->update($id, $data);
+        return $result > 0 ? response()->json(['message' => 'Updated']) : response()->json(['message' => 'Not Found'], 404) ;
     }
 
     /**

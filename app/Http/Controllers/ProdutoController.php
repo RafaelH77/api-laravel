@@ -28,7 +28,7 @@ class ProdutoController extends Controller
         return ProdutoResource::collection($list);
     }
 
-    public function store(ProdutoRequest $request)
+    public function store(Request $request)
     {
         $data = $this->service->create($request->all());
         return new ProdutoResource($data);
@@ -40,7 +40,7 @@ class ProdutoController extends Controller
         return new ProdutoResource($data);
     }
 
-    public function update(ProdutoRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $this->service->update($id, $request->all());
         return $data;
