@@ -18,6 +18,7 @@ class ProdutoController extends Controller
 
     /**
      * @OA\Get(
+     *     tags={"produto"},
      *     path="/api/produto",
      *     @OA\Response(response="200", description="Listar Produtos")
      * )
@@ -29,6 +30,7 @@ class ProdutoController extends Controller
 
     /**
      * @OA\Post(
+     *     tags={"produto"},
      *     path="/api/produto",
      *     @OA\Response(response="200", description="Criar Produto")
      * )
@@ -40,6 +42,7 @@ class ProdutoController extends Controller
 
     /**
      * @OA\Get(
+     *     tags={"produto"},
      *     path="/api/produto/{id}",
      *     @OA\Response(response="200", description="Mostrar Produto")
      * )
@@ -51,6 +54,7 @@ class ProdutoController extends Controller
 
     /**
      * @OA\Put(
+     *     tags={"produto"},
      *     path="/api/produto/{id}",
      *     @OA\Response(response="200", description="Atualizar Produto")
      * )
@@ -62,6 +66,7 @@ class ProdutoController extends Controller
 
     /**
      * @OA\Delete(
+     *     tags={"produto"},
      *     path="/api/produto/{id}",
      *     @OA\Response(response="200", description="Excluir Produto")
      * )
