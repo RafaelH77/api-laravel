@@ -64,13 +64,7 @@ class ProdutoService
      */
     public function delete(int $id)
     {
-        $object = $this->repository->getById($id);
-
-        if (!$object) {
-            return response()->json(['message' => 'Not Found'], 404);
-        }
-
-        $this->repository->delete($object);
-        return response()->json(['message' => 'Deleted'], 200);
+        $result = $this->repository->delete($id);
+        return $result > 0 ? response()->json(['message' => 'Deleted']) : response()->json(['message' => 'Not Found'], 404) ;
     }
 }

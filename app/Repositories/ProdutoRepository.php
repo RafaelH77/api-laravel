@@ -59,10 +59,11 @@ class ProdutoRepository implements IProdutoRepository
 
     /**
      * Deleta
-     * @param object $category
+     * @param int $id
+     * @return int
      */
     public function delete(int $id)
     {
-        return $this->entity->delete($id);
+        return $this->entity->where('id', $id)->delete();
     }
 }
