@@ -19,7 +19,7 @@ class ProdutoController extends Controller
     /**
      * @OA\Get(
      *     path="/api/produto",
-     *     @OA\Response(response="200", description="An example endpoint")
+     *     @OA\Response(response="200", description="Listar Produtos")
      * )
      */
     public function index()
@@ -27,21 +27,45 @@ class ProdutoController extends Controller
         return ProdutoResource::collection($this->service->getAll());
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/produto",
+     *     @OA\Response(response="200", description="Criar Produto")
+     * )
+     */
     public function store(Request $request)
     {
         return new ProdutoResource($this->service->create($request->all()));
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/produto/{id}",
+     *     @OA\Response(response="200", description="Mostrar Produto")
+     * )
+     */
     public function show($id)
     {
         return new ProdutoResource($this->service->getById($id));
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/produto/{id}",
+     *     @OA\Response(response="200", description="Atualizar Produto")
+     * )
+     */
     public function update(Request $request, $id)
     {
         return $this->service->update($id, $request->all());
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/produto/{id}",
+     *     @OA\Response(response="200", description="Excluir Produto")
+     * )
+     */
     public function destroy($id)
     {
         return $this->service->delete($id);
