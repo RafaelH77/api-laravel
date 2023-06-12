@@ -1,16 +1,65 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "My First API",
+        "title": "Laravel API",
         "version": "0.1"
     },
     "paths": {
         "/api/produto": {
             "get": {
+                "tags": [
+                    "produto"
+                ],
                 "operationId": "9e8b6153520e2c11e39c18d32a728581",
                 "responses": {
                     "200": {
-                        "description": "An example endpoint"
+                        "description": "Listar Produtos"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "produto"
+                ],
+                "operationId": "6ca322ebf4a8ee6f7f9c74a3a5a19cf0",
+                "responses": {
+                    "200": {
+                        "description": "Criar Produto"
+                    }
+                }
+            }
+        },
+        "/api/produto/{id}": {
+            "get": {
+                "tags": [
+                    "produto"
+                ],
+                "operationId": "1e02935046408bfa9cde9ce7d2b68805",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar Produto"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "produto"
+                ],
+                "operationId": "79676372602f656d77d498d2fe5aa44b",
+                "responses": {
+                    "200": {
+                        "description": "Atualizar Produto"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "produto"
+                ],
+                "operationId": "216f91a671205269378e26fb3310044b",
+                "responses": {
+                    "200": {
+                        "description": "Excluir Produto"
                     }
                 }
             }
