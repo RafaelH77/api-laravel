@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->float('vendedor_id');
+            $table->integer('vendedor_id');
             $table->float('valor');
             $table->float('comissao');
         });
