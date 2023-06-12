@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vendedor;
+use App\Http\Resources\VendedorResource;
+use App\Services\VendedorService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class VendedorController extends Controller
 {
+    protected $service;
+
+    public function __construct(VendedorService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Listar todos os vendedores
      *
@@ -18,27 +27,19 @@ class VendedorController extends Controller
      *     @OA\Response(response="200", description="Sucesso")
      *  )
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return new Response(
-            DB::table('sellers')
-                ->leftJoin('orders', 'sellers.id', '=', 'orders.seller_id')
-                ->select('sellers.id', 'sellers.name', 'sellers.email', DB::raw('ROUND(SUM(orders.commission), 2) as commission'))
-                ->groupBy('sellers.id')
-                ->get(), 200
-        );
+        return VendedorResource::collection($this->service->getAll());
     }
 
     /**
-     * Criar vendedor
      *
      *  * @OA\Post(
      *     tags={"vendedor"},
      *     path="/vendedor",
      *     @OA\Parameter(
-     *          name="name",
+     *          name="nome",
      *          in="query",
      *          @OA\Schema(type="string"),
      *          style="form",
@@ -52,13 +53,61 @@ class VendedorController extends Controller
      *     @OA\Response(response="200", description="Sucesso")
      *  )
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $seller = Seller::create($request->all());
-        return new Response($seller, 200);
+        return new VendedorResource($this->service->create($request->all()));
+    }
+
+    /**
+     * @OA\Get(
+     *     tags={"vendedor"},
+     *     path="/api/vendedor/{id}",
+     *     @OA\Response(response="200", description="Mostrar Vendedor")
+     * )
+     */
+    public function show($id)
+    {
+        return new VendedorResource($this->service->getById($id));
+    }
+
+    /**
+     * @OA\Put(
+     *     tags={"vendedor"},
+     *     path="/api/vendedor/{id}",
+     *     @OA\Response(response="200", description="Atualizar Vendedor")
+     * )
+     */
+    public function update(Request $request, $id)
+    {
+        return $this->service->update($id, $request->all());
+    }
+
+    /**
+     * @OA\Delete(
+     *     tags={"vendedor"},
+     *     path="/api/vendedor/{id}",
+     *     @OA\Response(response="200", description="Excluir Vendedor")
+     * )
+     */
+    public function destroy($id)
+    {
+        return $this->service->delete($id);
+    }
+
+    /**
+     * Listar todos os vendedores
+     *
+     *  * @OA\Get(
+     *     tags={"vendedor"},
+     *     path="/vendedor/{vendedor}/listarPedidos",
+     *     @OA\Response(response="200", description="Sucesso")
+     *  )
+     *
+     */
+    public function listarPedidos($id)
+    {
+        return new Response($this->service->getPedidosById($id));
     }
 
     /**
@@ -82,11 +131,11 @@ class VendedorController extends Controller
     public function showOrders($id)
     {
         return new Response(
-            DB::table('sellers')
-                ->join('orders', 'sellers.id', '=', 'orders.seller_id')
-                ->select('orders.id', 'sellers.name', 'sellers.email', DB::raw('ROUND(orders.commission, 2) as commission'),
-                    'orders.value', 'orders.created_at')
-                ->where('sellers.id', '=', $id)
+            DB::table('vendedores')
+                ->join('pedidos', 'vendedores.id', '=', 'pedidos.vendedor_id')
+                ->select('pedidos.id', 'vendedores.nome', 'vendedores.email', DB::raw('ROUND(pedidos.comissao, 2) as comissao'),
+                    'pedidos.valor', 'pedidos.created_at')
+                ->where('vendedores.id', '=', $id)
                 ->get(), 200
         );
     }
