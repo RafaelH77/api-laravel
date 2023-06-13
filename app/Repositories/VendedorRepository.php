@@ -30,6 +30,6 @@ class VendedorRepository extends BaseRepository implements IVendedorRepository
 
     public function getPedidosById(int $id)
     {
-        return  $this->entity->where('id', $id)->first()::with('pedidos')->paginate();
+        return $this->entity::with('pedidos')->where('id', $id)->first();
     }
 }
