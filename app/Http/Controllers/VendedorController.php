@@ -100,14 +100,14 @@ class VendedorController extends Controller
      *
      *  * @OA\Get(
      *     tags={"vendedor"},
-     *     path="/vendedor/{vendedor}/listarPedidos",
+     *     path="/vendedor/pedidos/comissao",
      *     @OA\Response(response="200", description="Sucesso")
      *  )
      *
      */
-    public function listarPedidos($id)
+    public function listarVendedoresComissao()
     {
-        return new Response($this->service->getPedidosById($id));
+        return VendedorResource::collection($this->service->getVendedoresComissao());
     }
 
     /**
@@ -115,7 +115,7 @@ class VendedorController extends Controller
      *
      *   * @OA\Get(
      *     tags={"vendedor"},
-     *     path="/vendedor/{vendedor}/pedido",
+     *     path="/vendedor/{vendedor}/pedidos",
      *     @OA\Parameter(
      *          name="vendedor",
      *          in="path",
@@ -128,16 +128,9 @@ class VendedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showOrders($id)
+    public function listarPedidos($id)
     {
-        return new Response(
-            DB::table('vendedores')
-                ->join('pedidos', 'vendedores.id', '=', 'pedidos.vendedor_id')
-                ->select('pedidos.id', 'vendedores.nome', 'vendedores.email', DB::raw('ROUND(pedidos.comissao, 2) as comissao'),
-                    'pedidos.valor', 'pedidos.created_at')
-                ->where('vendedores.id', '=', $id)
-                ->get(), 200
-        );
+        return new Response($this->service->getPedidosById($id));
     }
 
 }

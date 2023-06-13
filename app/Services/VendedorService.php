@@ -13,6 +13,11 @@ class VendedorService extends BaseService
         $this->repository = $repository;
     }
 
+    public function getVendedoresComissao()
+    {
+        return $this->repository->getVendedoresComissao();
+    }
+
     public function getPedidosById(int $id)
     {
         return $this->repository->getPedidosById($id);

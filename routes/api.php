@@ -25,4 +25,5 @@ Route::apiResources([
     'vendedor' => VendedorController::class,
 ]);
 
+Route::get('/vendedor/pedidos/comissao', [VendedorController::class, 'listarVendedoresComissao']);
 Route::get('/vendedor/{vendedor}/pedidos', [VendedorController::class, 'listarPedidos']);
