@@ -102,30 +102,20 @@ class PedidoController extends Controller
      *
      *   * @OA\Get(
      *     tags={"pedido"},
-     *     path="/pedido/total/{data}",
+     *     path="/pedidos/totalDia",
      *     @OA\Parameter(
      *          name="data",
-     *          in="path",
-     *          example="13-06-2022",
+     *          in="query",
+     *          example="13-06-2023",
      *          @OA\Schema(type="string"),
      *          style="form",
      *     ),
      *     @OA\Response(response="200", description="Sucesso")
      *   )
      *
-     * @param  string  $date
-     * @return \Illuminate\Http\Response
      */
-    public function showTotalOrders($date)
+    public function totalPedidoDia(Request $request)
     {
-        return new Response($this->service->getTotalPedidoPorDia($date));
-        /*
-        return new Response(
-            DB::table('orders')
-                ->select(DB::raw('SUM(orders.value) as total'))
-                ->whereBetween('orders.created_at', [date("Y-m-d H:i:s", strtotime($date)), date("Y-m-d H:i:s", strtotime($date . ' 23:59:59'))])
-                ->get(), 200
-        );
-        */
+        return new Response($this->service->getTotalPedidoPorDia($request->query('data')));
     }
 }

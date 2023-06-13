@@ -27,9 +27,9 @@ class PedidoRepository extends BaseRepository implements IPedidoRepository
         return $query->get();
     }
 
-    public function getTotalPedidoPorDia($date)
+    public function getTotalPedidoPorDia($dataInicial, $dataFinal)
     {
-        //return $this->entity->withSum('pedidos', 'comissao')->get();
+        return $this->entity->whereBetween('pedidos.created_at', [$dataInicial, $dataFinal])->sum('pedidos.valor');
     }
 
 }

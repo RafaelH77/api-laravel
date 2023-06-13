@@ -50,13 +50,10 @@ class PedidoService extends BaseService
         return array_merge($this->getById($id)->toArray(), ['vendedor_nome' => $vendedor->nome, 'vendedor_email' => $vendedor->email]);
     }
 
-    public function getTotalPedidoPorDia($date)
+    public function getTotalPedidoPorDia($data)
     {
-        return $this->repository->getTotalPedidoPorDia($date);
-    }
-
-    public function getPedidosPorVendedor(int $idVendedor)
-    {
-        return $this->repository->getPedidosPorVendedor($idVendedor);
+        $dataInicial = date("Y-m-d H:i:s", strtotime($data));
+        $dataFinal = date("Y-m-d H:i:s", strtotime($data . ' 23:59:59'));
+        return $this->repository->getTotalPedidoPorDia($dataInicial, $dataFinal);
     }
 }
