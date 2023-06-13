@@ -37,6 +37,19 @@ class PedidoService extends BaseService
         return array_merge($result->toArray(), ['vendedor_nome' => $vendedor->nome, 'vendedor_email' => $vendedor->email]);
     }
 
+    public function update(int $id, $request)
+    {
+        $data = $request->all();
+
+        $comissao = round($data['valor'] * 0.1, 2);
+
+        $result = $this->repository->update($id, array_merge($data, ['comissao' => $comissao]));
+
+        $vendedor = $this->vendedorRepository->getById($data['vendedor_id']);
+
+        return array_merge($this->getById($id)->toArray(), ['vendedor_nome' => $vendedor->nome, 'vendedor_email' => $vendedor->email]);
+    }
+
     public function getTotalPedidoPorDia($date)
     {
         return $this->repository->getTotalPedidoPorDia($date);

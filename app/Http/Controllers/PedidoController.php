@@ -59,20 +59,6 @@ class PedidoController extends Controller
     public function store(Request $request)
     {
         return new PedidoResource($this->service->create($request));
-
-        /*
-        $order = Order::create(array_merge($request->all(), ['commission' => round($request['value']*0.085, 2)]));
-        $seller = Seller::find($order->seller_id);
-        $responseObject = [
-          'id' => $order->id,
-          'name' => $seller->name,
-          'email' => $seller->email,
-          'comission' => $order->commission,
-          'value' => $order->value,
-          'created_at' => $order->created_at,
-        ];
-        return new Response($responseObject, 200);
-        */
     }
 
     /**
@@ -96,7 +82,7 @@ class PedidoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->service->update($id, $request->all());
+        return $this->service->update($id, $request);
     }
 
     /**
