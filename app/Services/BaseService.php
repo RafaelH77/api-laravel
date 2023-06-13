@@ -47,7 +47,7 @@ class BaseService
     public function update(int $id, array $data)
     {
         $result = $this->repository->update($id, $data);
-        return $result > 0 ? response()->json(['message' => 'Updated']) : response()->json(['message' => 'Not Found'], 404) ;
+        return $result ? $this->getById($id) : response()->json(['message' => 'Not Found'], 404) ;
     }
 
     /**
