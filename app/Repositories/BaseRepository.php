@@ -51,6 +51,7 @@ class BaseRepository implements IRepository
      */
     public function update(int $id, array $data)
     {
+        //return tap($this->entity->where('id', $id))->update($data)->first();
         return $this->entity->where('id', $id)->update($data);
     }
 

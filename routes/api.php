@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\VendedorController;
+use App\Http\Controllers\PedidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResources([
     'produto' => ProdutoController::class,
     'vendedor' => VendedorController::class,
+    'pedido' => PedidoController::class,
 ]);
 
 Route::get('/vendedor/pedidos/comissao', [VendedorController::class, 'listarVendedoresComissao']);

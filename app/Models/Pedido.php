@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Pedido extends Model
 {
@@ -14,7 +16,12 @@ class Pedido extends Model
     protected $fillable = [
         'vendedor_id',
         'valor',
-        'commissao',
+        'comissao',
     ];
 
+
+    public function vendedor(): BelongsTo
+    {
+        return $this->belongsTo(Vendedor::class);
+    }
 }
