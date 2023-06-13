@@ -23,9 +23,9 @@ class ProdutoController extends Controller
      *     @OA\Response(response="200", description="Listar Produtos")
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
-        return ProdutoResource::collection($this->service->getAll());
+        return ProdutoResource::collection($this->service->getAll($request));
     }
 
     /**

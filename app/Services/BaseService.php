@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\IRepository;
+use Illuminate\Http\Request;
 
 class BaseService
 {
@@ -16,9 +17,9 @@ class BaseService
     /**
      * @return $array
      */
-    public function getAll()
+    public function getAll(Request $request)
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($request);
     }
 
     /**

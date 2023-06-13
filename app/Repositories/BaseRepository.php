@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Interfaces\IRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class BaseRepository implements IRepository
 {
@@ -18,7 +19,7 @@ class BaseRepository implements IRepository
      * Lista todos
      * @return array
      */
-    public function getAll()
+    public function getAll(Request $request)
     {
         return $this->entity->paginate();
     }

@@ -29,9 +29,9 @@ class PedidoController extends Controller
      *  )
      *
      */
-    public function index()
+    public function index(Request $request)
     {
-        return PedidoResource::collection($this->service->getAll());
+        return PedidoResource::collection($this->service->getAll($request));
     }
 
     /**
