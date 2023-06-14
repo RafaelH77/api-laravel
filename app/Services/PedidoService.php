@@ -28,26 +28,22 @@ class PedidoService extends BaseService
 
         $data = $request->all();
 
-        $comissao = round($data['valor'] * 0.1, 2);
+        $comissao = $this->calculaComissao($data['valor']);
 
         $result = $this->repository->create(array_merge($data, ['comissao' => $comissao]));
 
-        $vendedor = $this->vendedorRepository->getById($data['vendedor_id']);
-
-        return array_merge($result->toArray(), ['vendedor_nome' => $vendedor->nome, 'vendedor_email' => $vendedor->email]);
+        return $this->repository->getByIdWithVendedor($result->id);
     }
 
     public function update(int $id, $request)
     {
         $data = $request->all();
 
-        $comissao = round($data['valor'] * 0.1, 2);
+        $comissao = $this->calculaComissao($data['valor']);
 
-        $result = $this->repository->update($id, array_merge($data, ['comissao' => $comissao]));
+        $this->repository->update($id, array_merge($data, ['comissao' => $comissao]));
 
-        $vendedor = $this->vendedorRepository->getById($data['vendedor_id']);
-
-        return array_merge($this->getById($id)->toArray(), ['vendedor_nome' => $vendedor->nome, 'vendedor_email' => $vendedor->email]);
+        return $this->repository->getByIdWithVendedor($id);
     }
 
     public function getTotalPedidoPorDia($data)
@@ -55,5 +51,9 @@ class PedidoService extends BaseService
         $dataInicial = date("Y-m-d H:i:s", strtotime($data));
         $dataFinal = date("Y-m-d H:i:s", strtotime($data . ' 23:59:59'));
         return $this->repository->getTotalPedidoPorDia($dataInicial, $dataFinal);
+    }
+
+    public function calculaComissao($valor){
+        return round($valor * 0.1, 2);
     }
 }

@@ -17,6 +17,11 @@ class PedidoRepository extends BaseRepository implements IPedidoRepository
         $this->entity = $entity;
     }
 
+    public function getByIdWithVendedor(int $id)
+    {
+        return $this->entity::with('vendedor')->where('id', $id)->first();
+    }
+
     public function getTotalPedidoPorDia($dataInicial, $dataFinal)
     {
         return $this->entity->whereBetween('pedidos.created_at', [$dataInicial, $dataFinal])->sum('pedidos.valor');
