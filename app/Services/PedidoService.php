@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\Interfaces\IPedidoRepository;
 use App\Repositories\Interfaces\IVendedorRepository;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class PedidoService extends BaseService
 {
@@ -17,16 +18,9 @@ class PedidoService extends BaseService
         $this->vendedorRepository = $vendedorRepository;
     }
 
-    public function create($request)
+    public function create($data)
     {
-        /*
-        Validação
-        $validator = $request->validate([
-            'valor' => 'required|numeric|min:0',
-        ]);
-        */
-
-        $data = $request->all();
+        $this->validate();
 
         $comissao = $this->calculaComissao($data['valor']);
 
@@ -35,9 +29,9 @@ class PedidoService extends BaseService
         return $this->repository->getByIdWithVendedor($result->id);
     }
 
-    public function update(int $id, $request)
+    public function update(int $id, $data)
     {
-        $data = $request->all();
+        $this->validate();
 
         $comissao = $this->calculaComissao($data['valor']);
 
@@ -55,5 +49,16 @@ class PedidoService extends BaseService
 
     public function calculaComissao($valor){
         return round($valor * 0.1, 2);
+    }
+
+    public function validate(){
+        try {
+            request()->validate([
+                'valor' => 'required|numeric|min:0',
+            ]);
+        } catch (ValidationException $exception) {
+            response()->json(['errors' => $exception->errors()], 400)->send();
+            die();
+        }
     }
 }

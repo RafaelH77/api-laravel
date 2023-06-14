@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PedidoResource;
-use App\Models\Pedido;
 use App\Services\PedidoService;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
@@ -29,9 +26,9 @@ class PedidoController extends Controller
      *  )
      *
      */
-    public function index(Request $request)
+    public function index()
     {
-        return PedidoResource::collection($this->service->getAll($request));
+        return PedidoResource::collection($this->service->getAll());
     }
 
     /**
@@ -58,7 +55,7 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        return new PedidoResource($this->service->create($request));
+        return new PedidoResource($this->service->create($request->all()));
     }
 
     /**
@@ -82,7 +79,7 @@ class PedidoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->service->update($id, $request);
+        return $this->service->update($id, $request->all());
     }
 
     /**

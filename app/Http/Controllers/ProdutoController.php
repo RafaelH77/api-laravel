@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProdutoRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Services\ProdutoService;
 use Illuminate\Http\Request;
@@ -23,9 +22,9 @@ class ProdutoController extends Controller
      *     @OA\Response(response="200", description="Listar Produtos")
      * )
      */
-    public function index(Request $request)
+    public function index()
     {
-        return ProdutoResource::collection($this->service->getAll($request));
+        return ProdutoResource::collection($this->service->getAll());
     }
 
     /**

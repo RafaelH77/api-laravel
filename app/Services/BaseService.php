@@ -17,9 +17,9 @@ class BaseService
     /**
      * @return $array
      */
-    public function getAll(Request $request)
+    public function getAll()
     {
-        return $this->repository->getAll($request);
+        return $this->repository->getAll();
     }
 
     /**

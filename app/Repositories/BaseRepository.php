@@ -20,8 +20,9 @@ class BaseRepository implements IRepository
      * Lista todos
      * @return array
      */
-    public function getAll(Request $request)
+    public function getAll()
     {
+        $request = request();
         $query = $this->entity::query();
 
         foreach ($request->query() as $key => $value){

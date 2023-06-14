@@ -28,9 +28,9 @@ class VendedorController extends Controller
      *  )
      *
      */
-    public function index(Request $request)
+    public function index()
     {
-        return VendedorResource::collection($this->service->getAll($request));
+        return VendedorResource::collection($this->service->getAll());
     }
 
     /**
