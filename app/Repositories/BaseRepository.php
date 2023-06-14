@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class BaseRepository implements IRepository
 {
     protected $entity;
+    protected $queryFilters = [];
 
     public function __construct(Model $model)
     {
@@ -21,7 +22,15 @@ class BaseRepository implements IRepository
      */
     public function getAll(Request $request)
     {
-        return $this->entity->paginate();
+        $query = $this->entity::query();
+
+        foreach ($request->query() as $key => $value){
+            if (in_array($key, $this->queryFilters)){
+                $query->where($key, $value);
+            }
+        }
+
+        return $query->get();
     }
 
     /**
