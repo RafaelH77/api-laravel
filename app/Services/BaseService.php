@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\IRepository;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class BaseService
 {
@@ -59,5 +60,14 @@ class BaseService
     {
         $result = $this->repository->delete($id);
         return $result > 0 ? response()->json(['message' => 'Deleted']) : response()->json(['message' => 'Not Found'], 404) ;
+    }
+
+    public function validate($rules){
+        try {
+            request()->validate($rules);
+        } catch (ValidationException $exception) {
+            response()->json(['errors' => $exception->errors()], 400)->send();
+            die();
+        }
     }
 }

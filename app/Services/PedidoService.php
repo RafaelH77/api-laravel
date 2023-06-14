@@ -11,6 +11,9 @@ class PedidoService extends BaseService
 {
     protected $repository;
     protected $vendedorRepository;
+    protected $validationRules = [
+        'valor' => 'required|numeric|min:0',
+    ];
 
     public function __construct(IPedidoRepository $repository, IVendedorRepository $vendedorRepository)
     {
@@ -20,7 +23,7 @@ class PedidoService extends BaseService
 
     public function create($data)
     {
-        $this->validate();
+        $this->validate($this->validationRules);
 
         $comissao = $this->calculaComissao($data['valor']);
 
@@ -31,7 +34,7 @@ class PedidoService extends BaseService
 
     public function update(int $id, $data)
     {
-        $this->validate();
+        $this->validate($this->validationRules);
 
         $comissao = $this->calculaComissao($data['valor']);
 
@@ -49,16 +52,5 @@ class PedidoService extends BaseService
 
     public function calculaComissao($valor){
         return round($valor * 0.1, 2);
-    }
-
-    public function validate(){
-        try {
-            request()->validate([
-                'valor' => 'required|numeric|min:0',
-            ]);
-        } catch (ValidationException $exception) {
-            response()->json(['errors' => $exception->errors()], 400)->send();
-            die();
-        }
     }
 }
