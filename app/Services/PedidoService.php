@@ -29,6 +29,8 @@ class PedidoService extends BaseService
 
         $result = $this->repository->create(array_merge($data, ['comissao' => $comissao]));
 
+        $result->itens()->createMany($data['itens']);
+
         return $this->repository->getByIdWithVendedor($result->id);
     }
 
