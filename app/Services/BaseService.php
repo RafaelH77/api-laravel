@@ -80,7 +80,7 @@ class BaseService
         $childListIds = array_column($childList, 'id');
 
         // Delete children
-        if (!is_null($dbChildList)) {
+        if (!is_null($dbChildList) && $dbChildList->exists()) {
             $childListIdsDelete = array_column(array_filter($dbChildList->get()->toArray(), function ($value) use ($childListIds) {
                 return !in_array($value['id'], $childListIds);
             }), 'id');
