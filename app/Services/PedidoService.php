@@ -50,7 +50,7 @@ class PedidoService extends BaseService
         $this->repository->update($id, array_merge($data, ['comissao' => $comissao]));
 
         $result = $this->repository->getByIdWithVendedor($id);
-        $this->UpdateOrDeleteChildren($result->itens(), $itens);
+        $this->UpdateOrDeleteChildren($result, 'itens', $result->itens(), $itens);
 
         return $this->repository->getByIdWithVendedor($id);
     }
@@ -64,37 +64,5 @@ class PedidoService extends BaseService
 
     public function calculaComissao($valor){
         return round($valor * 0.1, 2);
-    }
-
-    protected function UpdateOrDeleteChildren($dbChildList, $childList)
-    {
-        if (is_null($childList))
-            return;
-
-        $childListIds = array_column($childList, 'id');
-
-        // Delete children
-        if (!is_null($dbChildList)){
-            $childListIdsDelete = array_column(array_filter($dbChildList->get()->toArray(), function($value) use($childListIds) {
-                return !in_array($value['id'], $childListIds);
-            }), 'id');
-
-            $dbChildList
-                ->whereIn('id', $childListIdsDelete)
-                ->delete();
-        }
-
-        // Update/Insert children
-        foreach ($childList as $child){
-            $existingChild = null;
-            if (array_key_exists('id', $child))
-                $existingChild = $dbChildList->where('id', '=', $child['id']);
-
-            if (!is_null($existingChild)) {
-                $existingChild->update($child);
-            } else {
-                $dbChildList->create($child);
-            }
-        }
     }
 }

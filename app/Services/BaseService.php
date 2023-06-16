@@ -49,7 +49,7 @@ class BaseService
     public function update(int $id, array $data)
     {
         $result = $this->repository->update($id, $data);
-        return $result ? $this->getById($id) : response()->json(['message' => 'Not Found'], 404) ;
+        return $result ? $this->getById($id) : response()->json(['message' => 'Not Found'], 404);
     }
 
     /**
@@ -59,15 +59,46 @@ class BaseService
     public function delete(int $id)
     {
         $result = $this->repository->delete($id);
-        return $result > 0 ? response()->json(['message' => 'Deleted']) : response()->json(['message' => 'Not Found'], 404) ;
+        return $result > 0 ? response()->json(['message' => 'Deleted']) : response()->json(['message' => 'Not Found'], 404);
     }
 
-    public function validate($rules){
+    public function validate($rules)
+    {
         try {
             request()->validate($rules);
         } catch (ValidationException $exception) {
             response()->json(['errors' => $exception->errors()], 400)->send();
             die();
+        }
+    }
+
+    protected function UpdateOrDeleteChildren($entity, $relation, $dbChildList, $childList)
+    {
+        if (is_null($childList))
+            return;
+
+        $childListIds = array_column($childList, 'id');
+
+        // Delete children
+        if (!is_null($dbChildList)) {
+            $childListIdsDelete = array_column(array_filter($dbChildList->get()->toArray(), function ($value) use ($childListIds) {
+                return !in_array($value['id'], $childListIds);
+            }), 'id');
+
+            $entity->getRelation($relation)->toQuery()->whereIn('id', $childListIdsDelete)->delete();
+        }
+
+        // Update/Insert children
+        foreach ($childList as $child) {
+            $existingChild = null;
+            if (array_key_exists('id', $child))
+                $existingChild = $entity->getRelation($relation)->toQuery()->where('id', '=', $child['id']);
+
+            if (!is_null($existingChild)) {
+                $existingChild->update($child);
+            } else {
+                $dbChildList->create($child);
+            }
         }
     }
 }
