@@ -116,7 +116,7 @@
                 "operationId": "9e8b6153520e2c11e39c18d32a728581",
                 "responses": {
                     "200": {
-                        "description": "Listar Produtos"
+                        "description": "Sucesso"
                     }
                 }
             },
@@ -125,9 +125,45 @@
                     "produto"
                 ],
                 "operationId": "6ca322ebf4a8ee6f7f9c74a3a5a19cf0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome",
+                                    "descricao",
+                                    "estoque",
+                                    "preco"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "Caneta azul"
+                                    },
+                                    "descricao": {
+                                        "type": "string",
+                                        "example": "Caneta azul ponta fina"
+                                    },
+                                    "estoque": {
+                                        "type": "number",
+                                        "format": "double",
+                                        "example": "100"
+                                    },
+                                    "preco": {
+                                        "type": "number",
+                                        "format": "double",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Criar Produto"
+                        "description": "Sucesso"
                     }
                 }
             }
@@ -138,9 +174,20 @@
                     "produto"
                 ],
                 "operationId": "1e02935046408bfa9cde9ce7d2b68805",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do produto",
+                        "style": "form",
+                        "schema": {
+                            "type": "bigint"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Mostrar Produto"
+                        "description": "Sucesso"
                     }
                 }
             },
@@ -149,9 +196,56 @@
                     "produto"
                 ],
                 "operationId": "79676372602f656d77d498d2fe5aa44b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do produto",
+                        "style": "form",
+                        "schema": {
+                            "type": "bigint"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome",
+                                    "descricao",
+                                    "estoque",
+                                    "preco"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "Caneta azul"
+                                    },
+                                    "descricao": {
+                                        "type": "string",
+                                        "example": "Caneta azul ponta fina"
+                                    },
+                                    "estoque": {
+                                        "type": "number",
+                                        "format": "double",
+                                        "example": "100"
+                                    },
+                                    "preco": {
+                                        "type": "number",
+                                        "format": "double",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Atualizar Produto"
+                        "description": "Sucesso"
                     }
                 }
             },
@@ -160,9 +254,20 @@
                     "produto"
                 ],
                 "operationId": "216f91a671205269378e26fb3310044b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do produto",
+                        "style": "form",
+                        "schema": {
+                            "type": "bigint"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Excluir Produto"
+                        "description": "Sucesso"
                     }
                 }
             }
@@ -190,8 +295,8 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "email",
-                                    "password"
+                                    "nome",
+                                    "email"
                                 ],
                                 "properties": {
                                     "nome": {

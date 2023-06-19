@@ -30,8 +30,6 @@ class PedidoController extends Controller
     }
 
     /**
-     * Criar venda
-     *
      *  * @OA\Post(
      *     tags={"pedido"},
      *     path="/api/pedido",
@@ -60,7 +58,7 @@ class PedidoController extends Controller
      * @OA\Get(
      *     tags={"pedido"},
      *     path="/api/pedido/{id}",
-     *     @OA\Response(response="200", description="Mostrar Pedido")
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function show($id)
@@ -72,7 +70,7 @@ class PedidoController extends Controller
      * @OA\Put(
      *     tags={"pedido"},
      *     path="/api/pedido/{id}",
-     *     @OA\Response(response="200", description="Atualizar Pedido")
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function update(Request $request, $id)
@@ -84,7 +82,7 @@ class PedidoController extends Controller
      * @OA\Delete(
      *     tags={"pedido"},
      *     path="/api/pedido/{id}",
-     *     @OA\Response(response="200", description="Excluir Pedido")
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function destroy($id)

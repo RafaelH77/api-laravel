@@ -19,7 +19,7 @@ class ProdutoController extends Controller
      * @OA\Get(
      *     tags={"produto"},
      *     path="/api/produto",
-     *     @OA\Response(response="200", description="Listar Produtos")
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function index()
@@ -31,7 +31,17 @@ class ProdutoController extends Controller
      * @OA\Post(
      *     tags={"produto"},
      *     path="/api/produto",
-     *     @OA\Response(response="200", description="Criar Produto")
+     *    @OA\RequestBody(
+     *    required=true,
+     *    @OA\JsonContent(
+     *          required={"nome","descricao", "estoque", "preco"},
+     *          @OA\Property(property="nome", type="string", example="Caneta azul"),
+     *          @OA\Property(property="descricao", type="string", example="Caneta azul ponta fina"),
+     *          @OA\Property(property="estoque", type="double", example="100"),
+     *          @OA\Property(property="preco", type="double", example="5"),
+     *      ),
+     *    ),
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function store(Request $request)
@@ -43,7 +53,14 @@ class ProdutoController extends Controller
      * @OA\Get(
      *     tags={"produto"},
      *     path="/api/produto/{id}",
-     *     @OA\Response(response="200", description="Mostrar Produto")
+     *     @OA\Parameter(
+     *          description="Id do produto",
+     *          name="id",
+     *          in="path",
+     *          @OA\Schema(type="bigint"),
+     *          style="form",
+     *     ),
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function show($id)
@@ -55,7 +72,24 @@ class ProdutoController extends Controller
      * @OA\Put(
      *     tags={"produto"},
      *     path="/api/produto/{id}",
-     *     @OA\Response(response="200", description="Atualizar Produto")
+     *     @OA\Parameter(
+     *          description="Id do produto",
+     *          name="id",
+     *          in="path",
+     *          @OA\Schema(type="bigint"),
+     *          style="form",
+     *     ),
+     *    @OA\RequestBody(
+     *    required=true,
+     *    @OA\JsonContent(
+     *          required={"nome","descricao", "estoque", "preco"},
+     *          @OA\Property(property="nome", type="string", example="Caneta azul"),
+     *          @OA\Property(property="descricao", type="string", example="Caneta azul ponta fina"),
+     *          @OA\Property(property="estoque", type="double", example="100"),
+     *          @OA\Property(property="preco", type="double", example="5"),
+     *      ),
+     *    ),
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function update(Request $request, $id)
@@ -67,7 +101,14 @@ class ProdutoController extends Controller
      * @OA\Delete(
      *     tags={"produto"},
      *     path="/api/produto/{id}",
-     *     @OA\Response(response="200", description="Excluir Produto")
+     *     @OA\Parameter(
+     *          description="Id do produto",
+     *          name="id",
+     *          in="path",
+     *          @OA\Schema(type="bigint"),
+     *          style="form",
+     *     ),
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function destroy($id)

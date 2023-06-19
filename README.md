@@ -9,5 +9,10 @@ http://localhost:8080/
 ## Migration
 php artisan migrate
 
-## Gerar Swagger
+## Gerar Swagger após modificação
 php artisan l5-swagger:generate
+
+
+## Falta fazer
+Autenticação
+Testes unitarios

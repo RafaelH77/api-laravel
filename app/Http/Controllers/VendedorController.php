@@ -39,7 +39,7 @@ class VendedorController extends Controller
      *    @OA\RequestBody(
      *    required=true,
      *    @OA\JsonContent(
-     *          required={"email","password"},
+     *          required={"nome","email"},
      *          @OA\Property(property="nome", type="string", example="João"),
      *          @OA\Property(property="email", type="string", format="email", example="joao@hotmail.com"),
      *      ),
