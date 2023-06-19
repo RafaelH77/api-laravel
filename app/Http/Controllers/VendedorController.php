@@ -19,11 +19,9 @@ class VendedorController extends Controller
     }
 
     /**
-     * Listar todos os vendedores
-     *
      *  * @OA\Get(
      *     tags={"vendedor"},
-     *     path="/vendedor",
+     *     path="/api/vendedor",
      *     @OA\Response(response="200", description="Sucesso")
      *  )
      *
@@ -37,20 +35,16 @@ class VendedorController extends Controller
      *
      *  * @OA\Post(
      *     tags={"vendedor"},
-     *     path="/vendedor",
-     *     @OA\Parameter(
-     *          name="nome",
-     *          in="query",
-     *          @OA\Schema(type="string"),
-     *          style="form",
-     *     ),
-     *     @OA\Parameter(
-     *          name="email",
-     *          in="query",
-     *          @OA\Schema(type="string"),
-     *          style="form",
-     *     ),
-     *     @OA\Response(response="200", description="Sucesso")
+     *     path="/api/vendedor",
+     *    @OA\RequestBody(
+     *    required=true,
+     *    @OA\JsonContent(
+     *          required={"email","password"},
+     *          @OA\Property(property="nome", type="string", example="João"),
+     *          @OA\Property(property="email", type="string", format="email", example="joao@hotmail.com"),
+     *      ),
+     *    ),
+     *    @OA\Response(response="200", description="Sucesso")
      *  )
      *
      */
@@ -63,7 +57,14 @@ class VendedorController extends Controller
      * @OA\Get(
      *     tags={"vendedor"},
      *     path="/api/vendedor/{id}",
-     *     @OA\Response(response="200", description="Mostrar Vendedor")
+     *     @OA\Parameter(
+     *          description="Id do vendedor",
+     *          name="id",
+     *          in="path",
+     *          @OA\Schema(type="bigint"),
+     *          style="form",
+     *     ),
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function show($id)
@@ -75,7 +76,22 @@ class VendedorController extends Controller
      * @OA\Put(
      *     tags={"vendedor"},
      *     path="/api/vendedor/{id}",
-     *     @OA\Response(response="200", description="Atualizar Vendedor")
+     *     @OA\Parameter(
+     *          description="Id do vendedor",
+     *          name="id",
+     *          in="path",
+     *          @OA\Schema(type="bigint"),
+     *          style="form",
+     *     ),
+     *    @OA\RequestBody(
+     *    required=true,
+     *    @OA\JsonContent(
+     *          required={"email","password"},
+     *          @OA\Property(property="nome", type="string", example="João"),
+     *          @OA\Property(property="email", type="string", format="email", example="joao@hotmail.com"),
+     *      ),
+     *    ),
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function update(Request $request, $id)
@@ -87,7 +103,14 @@ class VendedorController extends Controller
      * @OA\Delete(
      *     tags={"vendedor"},
      *     path="/api/vendedor/{id}",
-     *     @OA\Response(response="200", description="Excluir Vendedor")
+     *     @OA\Parameter(
+     *          description="Id do vendedor",
+     *          name="id",
+     *          in="path",
+     *          @OA\Schema(type="bigint"),
+     *          style="form",
+     *     ),
+     *     @OA\Response(response="200", description="Sucesso")
      * )
      */
     public function destroy($id)
@@ -100,7 +123,7 @@ class VendedorController extends Controller
      *
      *  * @OA\Get(
      *     tags={"vendedor"},
-     *     path="/vendedor/pedidos/comissao",
+     *     path="/api/vendedor/pedidos/comissao",
      *     @OA\Response(response="200", description="Sucesso")
      *  )
      *
@@ -115,9 +138,10 @@ class VendedorController extends Controller
      *
      *   * @OA\Get(
      *     tags={"vendedor"},
-     *     path="/vendedor/{vendedor}/pedidos",
+     *     path="/api/vendedor/{id}/pedidos",
      *     @OA\Parameter(
-     *          name="vendedor",
+     *          description="Id do vendedor",
+     *          name="id",
      *          in="path",
      *          @OA\Schema(type="bigint"),
      *          style="form",
@@ -125,7 +149,7 @@ class VendedorController extends Controller
      *     @OA\Response(response="200", description="Sucesso")
      *   )
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function listarPedidos($id)

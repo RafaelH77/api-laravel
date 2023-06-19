@@ -17,11 +17,9 @@ class PedidoController extends Controller
     }
 
     /**
-     * Listar todos os pedidos
-     *
      *  * @OA\Get(
      *     tags={"pedido"},
-     *     path="/pedido",
+     *     path="/api/pedido",
      *     @OA\Response(response="200", description="Sucesso")
      *  )
      *
@@ -36,7 +34,7 @@ class PedidoController extends Controller
      *
      *  * @OA\Post(
      *     tags={"pedido"},
-     *     path="/pedido",
+     *     path="/api/pedido",
      *     @OA\Parameter(
      *          name="vendedor_id",
      *          in="query",
@@ -99,7 +97,7 @@ class PedidoController extends Controller
      *
      *   * @OA\Get(
      *     tags={"pedido"},
-     *     path="/pedidos/totalDia",
+     *     path="/api/pedidos/totalDia",
      *     @OA\Parameter(
      *          name="data",
      *          in="query",
