@@ -21,26 +21,55 @@
                 "tags": [
                     "pedido"
                 ],
-                "summary": "Criar venda",
                 "operationId": "9e3bd6b7e6c3fed6d7fa7d0720ac3220",
-                "parameters": [
-                    {
-                        "name": "vendedor_id",
-                        "in": "query",
-                        "style": "form",
-                        "schema": {
-                            "type": "bigint"
-                        }
-                    },
-                    {
-                        "name": "valor",
-                        "in": "query",
-                        "style": "form",
-                        "schema": {
-                            "type": "float"
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "vendedor_id",
+                                    "valor",
+                                    "itens"
+                                ],
+                                "properties": {
+                                    "vendedor_id": {
+                                        "type": "bigint",
+                                        "example": "1"
+                                    },
+                                    "valor": {
+                                        "type": "number",
+                                        "format": "double",
+                                        "example": "200"
+                                    },
+                                    "itens": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "produto_id": {
+                                                    "type": "bigint",
+                                                    "example": "1"
+                                                },
+                                                "valor": {
+                                                    "type": "number",
+                                                    "format": "double",
+                                                    "example": "50"
+                                                },
+                                                "quantidade": {
+                                                    "type": "number",
+                                                    "format": "double",
+                                                    "example": "4"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Sucesso"
@@ -54,9 +83,20 @@
                     "pedido"
                 ],
                 "operationId": "a1d998e3688f711975a47999b5a70c8f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do pedido",
+                        "style": "form",
+                        "schema": {
+                            "type": "bigint"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Mostrar Pedido"
+                        "description": "Sucesso"
                     }
                 }
             },
@@ -65,9 +105,68 @@
                     "pedido"
                 ],
                 "operationId": "03ff808340e6a4bb1e2ce007abcff75a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do pedido",
+                        "style": "form",
+                        "schema": {
+                            "type": "bigint"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "vendedor_id",
+                                    "valor",
+                                    "itens"
+                                ],
+                                "properties": {
+                                    "vendedor_id": {
+                                        "type": "bigint",
+                                        "example": "1"
+                                    },
+                                    "valor": {
+                                        "type": "number",
+                                        "format": "double",
+                                        "example": "200"
+                                    },
+                                    "itens": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "produto_id": {
+                                                    "type": "bigint",
+                                                    "example": "1"
+                                                },
+                                                "valor": {
+                                                    "type": "number",
+                                                    "format": "double",
+                                                    "example": "50"
+                                                },
+                                                "quantidade": {
+                                                    "type": "number",
+                                                    "format": "double",
+                                                    "example": "4"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Atualizar Pedido"
+                        "description": "Sucesso"
                     }
                 }
             },
@@ -76,9 +175,20 @@
                     "pedido"
                 ],
                 "operationId": "44b8c42bfba9cde9749d9822ddb68262",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do pedido",
+                        "style": "form",
+                        "schema": {
+                            "type": "bigint"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Excluir Pedido"
+                        "description": "Sucesso"
                     }
                 }
             }
@@ -88,7 +198,6 @@
                 "tags": [
                     "pedido"
                 ],
-                "summary": "Mostrar o total de vendas do dia",
                 "operationId": "62c82d4c0165621e0af160dc62bc0eb9",
                 "parameters": [
                     {

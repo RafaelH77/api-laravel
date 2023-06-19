@@ -33,18 +33,33 @@ class PedidoController extends Controller
      *  * @OA\Post(
      *     tags={"pedido"},
      *     path="/api/pedido",
-     *     @OA\Parameter(
-     *          name="vendedor_id",
-     *          in="query",
-     *          @OA\Schema(type="bigint"),
-     *          style="form",
-     *     ),
-     *     @OA\Parameter(
-     *          name="valor",
-     *          in="query",
-     *          @OA\Schema(type="float"),
-     *          style="form",
-     *     ),
+     *    @OA\RequestBody(
+     *    required=true,
+     *    @OA\JsonContent(
+     *          required={"vendedor_id","valor", "itens"},
+     *          @OA\Property(property="vendedor_id", type="bigint", example="1"),
+     *          @OA\Property(property="valor", type="double", example="200"),
+     *          @OA\Property(property="itens", type="array",
+     *                @OA\Items(
+     *                      @OA\Property(
+     *                         property="produto_id",
+     *                         type="bigint",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="valor",
+     *                         type="double",
+     *                         example="50"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="quantidade",
+     *                         type="double",
+     *                         example="4"
+     *                      ),
+     *                ),
+     *          ),
+     *      ),
+     *    ),
      *     @OA\Response(response="200", description="Sucesso")
      *  )
      *
@@ -58,6 +73,13 @@ class PedidoController extends Controller
      * @OA\Get(
      *     tags={"pedido"},
      *     path="/api/pedido/{id}",
+     *     @OA\Parameter(
+     *          description="Id do pedido",
+     *          name="id",
+     *          in="path",
+     *          @OA\Schema(type="bigint"),
+     *          style="form",
+     *     ),
      *     @OA\Response(response="200", description="Sucesso")
      * )
      */
@@ -70,6 +92,40 @@ class PedidoController extends Controller
      * @OA\Put(
      *     tags={"pedido"},
      *     path="/api/pedido/{id}",
+     *     @OA\Parameter(
+     *          description="Id do pedido",
+     *          name="id",
+     *          in="path",
+     *          @OA\Schema(type="bigint"),
+     *          style="form",
+     *     ),
+     *    @OA\RequestBody(
+     *    required=true,
+     *    @OA\JsonContent(
+     *          required={"vendedor_id","valor", "itens"},
+     *          @OA\Property(property="vendedor_id", type="bigint", example="1"),
+     *          @OA\Property(property="valor", type="double", example="200"),
+     *          @OA\Property(property="itens", type="array",
+     *                @OA\Items(
+     *                      @OA\Property(
+     *                         property="produto_id",
+     *                         type="bigint",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="valor",
+     *                         type="double",
+     *                         example="50"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="quantidade",
+     *                         type="double",
+     *                         example="4"
+     *                      ),
+     *                ),
+     *          ),
+     *      ),
+     *    ),
      *     @OA\Response(response="200", description="Sucesso")
      * )
      */
@@ -82,6 +138,13 @@ class PedidoController extends Controller
      * @OA\Delete(
      *     tags={"pedido"},
      *     path="/api/pedido/{id}",
+     *     @OA\Parameter(
+     *          description="Id do pedido",
+     *          name="id",
+     *          in="path",
+     *          @OA\Schema(type="bigint"),
+     *          style="form",
+     *     ),
      *     @OA\Response(response="200", description="Sucesso")
      * )
      */
@@ -91,8 +154,6 @@ class PedidoController extends Controller
     }
 
     /**
-     * Mostrar o total de vendas do dia
-     *
      *   * @OA\Get(
      *     tags={"pedido"},
      *     path="/api/pedidos/totalDia",
@@ -105,7 +166,6 @@ class PedidoController extends Controller
      *     ),
      *     @OA\Response(response="200", description="Sucesso")
      *   )
-     *
      */
     public function totalPedidoDia(Request $request)
     {
