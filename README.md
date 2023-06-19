@@ -12,7 +12,7 @@ php artisan migrate
 ## Gerar Swagger após modificação
 php artisan l5-swagger:generate
 
-
 ## Falta fazer
 Autenticação
 Testes unitarios
+Melhorar a forma de documentação (deixar mais automático)
