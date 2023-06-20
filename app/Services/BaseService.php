@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 class BaseService
 {
     protected $repository;
+    protected $validationRules = [];
 
     public function __construct(IRepository $repository)
     {
@@ -38,6 +39,7 @@ class BaseService
      */
     public function create(array $data)
     {
+        $this->validate($this->validationRules);
         return $this->repository->create($data);
     }
 
@@ -48,6 +50,7 @@ class BaseService
      */
     public function update(int $id, array $data)
     {
+        $this->validate($this->validationRules);
         $result = $this->repository->update($id, $data);
         return $result ? $this->getById($id) : response()->json(['message' => 'Not Found'], 404);
     }
