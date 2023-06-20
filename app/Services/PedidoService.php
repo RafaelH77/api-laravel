@@ -29,9 +29,7 @@ class PedidoService extends BaseService
     {
         $this->validate($this->validationRules);
 
-        $comissao = $this->calculaComissao($data['valor']);
-
-        $result = $this->repository->create(array_merge($data, ['comissao' => $comissao]));
+        $result = $this->repository->create($data);
 
         $result->itens()->createMany($data['itens']);
 
@@ -42,12 +40,10 @@ class PedidoService extends BaseService
     {
         $this->validate($this->validationRules);
 
-        $comissao = $this->calculaComissao($data['valor']);
-
         $itens = $data['itens'];
         unset($data['itens']);
 
-        $this->repository->update($id, array_merge($data, ['comissao' => $comissao]));
+        $this->repository->update($id, $data);
 
         $result = $this->repository->getByIdWithVendedor($id);
         $this->UpdateOrDeleteChildren($result, 'itens', $result->itens(), $itens);
@@ -62,7 +58,5 @@ class PedidoService extends BaseService
         return $this->repository->getTotalPedidoPorDia($dataInicial, $dataFinal);
     }
 
-    public function calculaComissao($valor){
-        return round($valor * 0.1, 2);
-    }
+
 }

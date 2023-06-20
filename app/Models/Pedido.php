@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Doctrine\Common\Annotations\Annotation\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,5 +32,15 @@ class Pedido extends Model
     public function itens(): HasMany
     {
         return $this->hasMany(PedidoItem::class);
+    }
+
+    public function setValorAttribute($value): void
+    {
+        $this->attributes['valor'] = $value;
+        $this->attributes['comissao'] = $this->calculaComissao($value);
+    }
+
+    public function calculaComissao($valor){
+        return round($valor * 0.1, 2);
     }
 }
