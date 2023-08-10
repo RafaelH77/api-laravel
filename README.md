@@ -15,4 +15,5 @@ php artisan l5-swagger:generate
 ## Falta fazer
 Autenticação
 Testes unitarios
+CI/CD
 Melhorar a forma de documentação (deixar mais automático)
