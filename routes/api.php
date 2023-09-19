@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
@@ -21,13 +22,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'produto' => ProdutoController::class,
-    'vendedor' => VendedorController::class,
-    'pedido' => PedidoController::class,
-]);
+Route::post('/register', [AuthController::class, 'createUser']);
+Route::post('/login', [AuthController::class, 'loginUser']);
 
-Route::get('/vendedor/pedidos/comissao', [VendedorController::class, 'listarVendedoresComissao']);
-Route::get('/vendedor/{id}/pedidos', [VendedorController::class, 'listarPedidos']);
-Route::get('/pedidos/totalDia', [PedidoController::class, 'totalPedidoDia']);
+Route::middleware(['auth:sanctum'])->group(function (){
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
+    Route::apiResources([
+        'produto' => ProdutoController::class,
+        'vendedor' => VendedorController::class,
+        'pedido' => PedidoController::class,
+    ]);
 
+    Route::get('/vendedor/pedidos/comissao', [VendedorController::class, 'listarVendedoresComissao']);
+    Route::get('/vendedor/{id}/pedidos', [VendedorController::class, 'listarPedidos']);
+    Route::get('/pedidos/totalDia', [PedidoController::class, 'totalPedidoDia']);
+});

@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: .docker/Dockerfile
     restart: always
-    container_name: php8_site
+    container_name: php8_api
     ports:
       - "9000:9000"
     networks:
@@ -14,6 +14,22 @@ services:
     volumes:
       - .:/var/www/html/
     tty: true
+    
+  db:
+    image: mysql:8.0.26
+    container_name: mysql_api
+    volumes: 
+      - ./confs/mysql_db:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: api_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+    ports:
+      - "3306:3306"
+    networks: 
+      - net 
 
   nginx:
     image: nginx

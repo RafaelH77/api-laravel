@@ -15,8 +15,6 @@ php artisan migrate
 php artisan l5-swagger:generate
 
 ## Falta fazer
-Autenticação
-<br>
 Testes unitarios
 <br>
 CI/CD
