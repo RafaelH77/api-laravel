@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
@@ -22,12 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/register', [AuthController::class, 'createUser']);
-Route::post('/login', [AuthController::class, 'loginUser']);
+Route::post('/register', [UserController::class, 'createUser']);
+Route::post('/login', [UserController::class, 'loginUser']);
 
 Route::middleware(['auth:sanctum'])->group(function (){
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', [AuthController::class, 'me']);
+    Route::post('/logout', [UserController::class, 'logout']);
+    Route::get('/me', [UserController::class, 'me']);
     Route::apiResources([
         'produto' => ProdutoController::class,
         'vendedor' => VendedorController::class,

@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class VendedorRepository extends BaseRepository implements IVendedorRepository
 {
-    protected $entity;
-
     public function __construct(Vendedor $entity)
     {
         $this->entity = $entity;

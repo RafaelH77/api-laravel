@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Controllers\Controller;
+use App\Repositories\Interfaces\IUserRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
 
-class AuthController extends Controller
+class UserService extends BaseService
 {
-    /**
-     * Create User
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    public function __construct(IUserRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function createUser(Request $request)
     {
         try {
@@ -36,7 +36,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $user = User::create([
+            $user = $this->repository->create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
@@ -56,11 +56,6 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Login The User
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function loginUser(Request $request)
     {
         try {
@@ -85,7 +80,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $user = User::where('email', $request->email)->first();
+            $user = $this->repository->getByEmail($request->email);
 
             $user->tokens()->delete();
 
@@ -101,21 +96,5 @@ class AuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-    }
-
-    public function logout(Request $request)
-    {
-        $request->user()->tokens()->delete();
-
-        return response()->json([
-            'message' => 'Sucesso',
-        ]);
-    }
-
-    public function me(Request $request)
-    {
-        return response()->json([
-            'me' => $request->user(),
-        ]);
     }
 }

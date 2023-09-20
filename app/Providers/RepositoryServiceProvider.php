@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
-use App\Repositories\Interfaces\{IPedidoRepository, IProdutoRepository, IVendedorRepository};
-use App\Repositories\{PedidoRepository, ProdutoRepository, VendedorRepository};
+use App\Repositories\Interfaces\{IPedidoRepository,
+    IProdutoRepository,
+    IRepository,
+    IUserRepository,
+    IVendedorRepository};
+use App\Repositories\{BaseRepository, PedidoRepository, ProdutoRepository, UserRepository, VendedorRepository};
 
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +31,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             IPedidoRepository::class,
             PedidoRepository::class,
+        );
+
+        $this->app->bind(
+            IUserRepository::class,
+            UserRepository::class,
         );
     }
 

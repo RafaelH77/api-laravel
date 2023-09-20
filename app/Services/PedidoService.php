@@ -13,7 +13,6 @@ use function PHPUnit\Framework\isNull;
 
 class PedidoService extends BaseService
 {
-    protected $repository;
     protected $vendedorRepository;
     protected $validationRules = [
         'valor' => 'required|numeric|min:0',

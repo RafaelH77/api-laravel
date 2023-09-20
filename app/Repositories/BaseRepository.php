@@ -11,11 +11,6 @@ class BaseRepository implements IRepository
     protected $entity;
     protected $queryFilters = [];
 
-    public function __construct(Model $model)
-    {
-        $this->entity = $model;
-    }
-
     /**
      * Lista todos
      * @return array

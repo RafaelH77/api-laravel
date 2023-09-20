@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class PedidoRepository extends BaseRepository implements IPedidoRepository
 {
-    protected $entity;
     protected $queryFilters = ['vendedor_id'];
 
     public function __construct(Pedido $entity)

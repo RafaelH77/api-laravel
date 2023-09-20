@@ -11,11 +11,6 @@ class BaseService
     protected $repository;
     protected $validationRules = [];
 
-    public function __construct(IRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     /**
      * @return $array
      */
