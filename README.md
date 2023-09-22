@@ -14,6 +14,9 @@ php artisan make:migration create_pedido_item_table
 ## Rodar migration
 php artisan migrate
 
+## Rodar testes
+php artisan test
+
 ## Gerar Swagger após modificação
 php artisan l5-swagger:generate
 
