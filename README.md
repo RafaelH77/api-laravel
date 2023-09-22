@@ -21,8 +21,6 @@ php artisan test
 php artisan l5-swagger:generate
 
 ## Falta fazer
-Testes unitarios
-<br>
 CI/CD
 <br>
 Melhorar a forma de documentação (deixar mais automático)
