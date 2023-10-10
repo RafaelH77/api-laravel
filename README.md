@@ -33,6 +33,9 @@ AWS_BUCKET=laravel-infra
 AWS_USE_PATH_STYLE_ENDPOINT=true
 AWS_ENDPOINT="http://localstack:4566/"
 
+SQS_PREFIX=http://localstack:4566/000000000000/
+SQS_QUEUE=laravel-fila
+
 
 ## Falta fazer
 CI/CD

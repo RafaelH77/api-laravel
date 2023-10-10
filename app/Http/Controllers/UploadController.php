@@ -25,4 +25,11 @@ class UploadController extends Controller
         $uploaded = $s3->putFile($s3Path, $image, 'public');
         return $uploaded;
     }
+
+    public function uploadImageSqs(Request $request)
+    {
+        $imagePath = $request->file('image')->getPathname();
+        UploadImageToS3::dispatch($imagePath)->onConnection('sqs');
+        return response()->json(['message' => 'Image upload job dispatched.']);
+    }
 }

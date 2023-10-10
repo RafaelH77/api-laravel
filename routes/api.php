@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [UserController::class, 'createUser']);
 Route::post('/login', [UserController::class, 'loginUser']);
 Route::post('/uploadImage', [UploadController::class, 'uploadImage']);
+Route::post('/uploadImageSqs', [UploadController::class, 'uploadImageSqs']);
 
 Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/logout', [UserController::class, 'logout']);
