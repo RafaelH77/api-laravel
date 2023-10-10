@@ -45,6 +45,9 @@ SQS_PREFIX=http://localstack:4566/000000000000/
 <br>
 SQS_QUEUE=laravel-fila
 
+## Exemplo rodar jobs sqs
+php artisan queue:work sqs
+
 
 ## Falta fazer
 CI/CD
